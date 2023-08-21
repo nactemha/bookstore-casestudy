@@ -18,19 +18,20 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingStoreAPI", Version = "v1" });
 });
 
+
 Settings settings = new Settings(builder.Configuration);
 builder.Services.AddSingleton<ISettings>(services => settings);
 
+
 //postgre db configuration
-var dbContext=new ecommerce.data.postgre.AppDbContext( settings);
-builder.Services.AddSingleton<ecommerce.data.postgre.AppDbContext>(services=>dbContext);
+var dbContextPostgre=new ecommerce.data.postgre.AppDbContext( settings);
+builder.Services.AddSingleton<ecommerce.data.postgre.AppDbContext>(services=>dbContextPostgre);
 builder.Services.AddSingleton<ICustomerRepository, ecommerce.data.postgre.CustomerRepository>();
-//---------------------------------------------
-//elastic db configuration
-//---------------------------------------------
+
+builder.Services.AddSingleton<TokenService, TokenService>();
+
 
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
-builder.Services.AddSingleton<TokenService, TokenService>();
 
 var app = builder.Build();
 
