@@ -4,6 +4,7 @@ namespace ecommerce.data
     public interface ICustomerRepository : IRepository<CustomerEntity>
     {
         Task<CustomerEntity> GetCustomerByEmailAsync(string email);
+        Task<bool> ValidateCustomerAsync(String email, String passwordHash);
     }
     public interface IBookRepository : IRepository<BookEntity> { }
 

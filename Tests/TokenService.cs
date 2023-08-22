@@ -22,7 +22,7 @@ namespace ecommerce.Tests.services
             mockSettings.Setup(x => x.GetSecretKey()).Returns("1234567890123456");
             mockSettings.Setup(x => x.GetTokenExperation()).Returns(new TimeSpan(0, 0, 1, 0));
             var mockCustomerRepository = new Mock<ICustomerRepository>();
-            var tokenService = new TokenService(mockCustomerRepository.Object, mockSettings.Object);
+            var tokenService = new TokenService( mockSettings.Object);
             var loginRequest = new LoginRequest
             {
                 Email = "email@test.com",

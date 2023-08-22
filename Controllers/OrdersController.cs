@@ -2,7 +2,7 @@ using ecommerce.service;
 
 namespace ecommerce.Controllers
 {
-    using ecommerce.extention;
+    using ecommerce.extension;
     using ecommerce.models;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -86,7 +86,7 @@ namespace ecommerce.Controllers
         /// <response code="500">Internal Server Error</response>
         [HttpPost]
         [FrontAuth]
-        public async Task<IActionResult> PlaceOrder(OrderEntity order)
+        public async Task<IActionResult> PlaceOrder(PlaceOrderModel order)
         {
             if (!ModelState.IsValid)
             {
@@ -95,8 +95,12 @@ namespace ecommerce.Controllers
 
             try
             {
-                await _orderService.PlaceOrderAsync(order);
-                return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
+                var customerEmail = User.Claims.FirstOrDefault(x => x.Type == System.Security.Claims.ClaimTypes.Email).Value;
+                var customer = await _customerService.GetCustomerByEmailAsync(customerEmail);
+                order.CustomerId = customer.Id;
+                var orderInfo=await _orderService.PlaceOrderAsync(order);
+                return Ok(orderInfo);
+                
             }
             catch (Exception ex)
             {

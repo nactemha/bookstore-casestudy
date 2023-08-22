@@ -1,4 +1,5 @@
 using ecommerce.data;
+using ecommerce.extension;
 using ecommerce.models;
 
 namespace ecommerce.service
@@ -12,46 +13,74 @@ namespace ecommerce.service
             _customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<CustomerEntity>> GetAllCustomersAsync()
+        public async Task<IEnumerable<CustomerModel>> GetAllCustomersAsync()
         {
-            return await _customerRepository.GetAllAsync();
-        }
 
-        public async Task<CustomerEntity> GetCustomerByIdAsync(int id)
-        {
-            return await _customerRepository.GetByIdAsync(id);
-        }
-        public async Task<CustomerEntity> GetCustomerByEmailAsync(string email)
-        {
-            return await _customerRepository.GetCustomerByEmailAsync(email);
-        }
-
-        public async Task AddCustomerAsync(CustomerEntity customer)
-        {
-            if (customer == null)
+            var result= await _customerRepository.GetAllAsync();
+            return result.Select(c => new CustomerModel
             {
-                throw new ArgumentNullException(nameof(customer));
-            }
-
-
-            await _customerRepository.AddAsync(customer);
-            await _customerRepository.SaveChangesAsync();
+                Id = c.Id,
+                Email = c.Email,
+                Address = c.Address,
+                PhoneNumber = c.PhoneNumber,
+            });
         }
 
-        public async Task UpdateCustomerAsync(CustomerEntity customer)
+        public async Task<CustomerModel> GetCustomerByIdAsync(int id)
         {
-            if (customer == null)
+            var result= await _customerRepository.GetByIdAsync(id);
+            return new CustomerModel
             {
-                throw new ArgumentNullException(nameof(customer));
-            }
+                Id = result.Id,
+                Email = result.Email,
+                Address = result.Address,
+                PhoneNumber = result.PhoneNumber,
+            };
+        }
+        public async Task<CustomerModel> GetCustomerByEmailAsync(string email)
+        {
+            var result= await _customerRepository.GetCustomerByEmailAsync(email);
+            return new CustomerModel
+            {
+                Id = result.Id,
+                Email = result.Email,
+                Address = result.Address,
+                PhoneNumber = result.PhoneNumber,
+            };
+        }
 
+        public async Task AddCustomerAsync(CustomerModel customer)
+        {
+            
             var existingCustomer = await _customerRepository.GetCustomerByEmailAsync(customer.Email);
-            if (existingCustomer != null && existingCustomer.Id != customer.Id)
+            if (existingCustomer != null)
             {
                 throw new InvalidOperationException("Another customer with this email already exists.");
             }
 
-            _customerRepository.Update(customer);
+            var requestedCustomer =new CustomerEntity{
+                Email = customer.Email,
+                Address = customer.Address,
+                PhoneNumber = customer.PhoneNumber,
+                HashedPassword = customer.Password.CalcMD5(),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            await _customerRepository.AddAsync(requestedCustomer);
+            await _customerRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateCustomerAsync(CustomerModel customer)
+        {
+            var requestedCustomer = await _customerRepository.GetByIdAsync(customer.Id);
+            if (requestedCustomer == null)
+            {
+                throw new InvalidOperationException("Customer not found.");
+            }
+            requestedCustomer.Email = customer.Email;
+            requestedCustomer.Address = customer.Address;
+            requestedCustomer.PhoneNumber = customer.PhoneNumber;
+            _customerRepository.Update(requestedCustomer);
             await _customerRepository.SaveChangesAsync();
         }
 
@@ -65,6 +94,11 @@ namespace ecommerce.service
 
             _customerRepository.Delete(customer.Id);
             await _customerRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> ValidateCustomerAsync(string email, string passwordHash)
+        {
+            return await _customerRepository.ValidateCustomerAsync(email, passwordHash);
         }
     }
 

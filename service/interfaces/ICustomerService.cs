@@ -5,11 +5,12 @@ namespace ecommerce.service
 {
     public interface ICustomerService
     {
-        Task<IEnumerable<CustomerEntity>> GetAllCustomersAsync();
-        Task<CustomerEntity> GetCustomerByIdAsync(int id);
-        Task<CustomerEntity> GetCustomerByEmailAsync(string email);
-        Task AddCustomerAsync(CustomerEntity customer);
-        Task UpdateCustomerAsync(CustomerEntity customer);
+        Task<IEnumerable<CustomerModel>> GetAllCustomersAsync();
+        Task<CustomerModel> GetCustomerByIdAsync(int id);
+        Task<CustomerModel> GetCustomerByEmailAsync(string email);
+        Task<bool> ValidateCustomerAsync(String email, String passwordHash);
+        Task AddCustomerAsync(CustomerModel customer);
+        Task UpdateCustomerAsync(CustomerModel customer);
         Task DeleteCustomerAsync(int CustomerId);
     }
 

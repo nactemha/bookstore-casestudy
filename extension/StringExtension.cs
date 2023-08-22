@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace ecommerce.extention
+namespace ecommerce.extension
 {
     public static class StringExtensions
     {

@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using ecommerce.extention;
+using ecommerce.extension;
 using ecommerce.service;
 using Microsoft.AspNetCore.Mvc;
 

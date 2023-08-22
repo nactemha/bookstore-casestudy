@@ -23,6 +23,18 @@ namespace ecommerce.data.elastic
 
             return response.Documents.FirstOrDefault();
         }
+
+        public Task<bool> ValidateCustomerAsync(string email, string passwordHash)
+        {
+           return _client.SearchAsync<CustomerEntity>(s => s
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.Email)
+                        .Query(email)
+                    )
+                )
+            ).ContinueWith(t => t.Result.Documents.Any(c => c.HashedPassword == passwordHash));
+        }
     }
     public class BookElasticsearchRepository : Repository<BookEntity>, IBookRepository
     {

@@ -1,10 +1,5 @@
-using System;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using ecommerce.service;
 using ecommerce.models;
-using ecommerce.extention;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,12 +9,10 @@ namespace ecommerce.service
 {
     public class TokenService : ITokenService
     {
-        private readonly ICustomerRepository customerRepository;
         private readonly ISettings settings;
 
-        public TokenService(ICustomerRepository authenticationRepo, ISettings settings)
+        public TokenService(ISettings settings)
         {
-            this.customerRepository = authenticationRepo;
             this.settings = settings;
         }
         public TokenInfo GetToken(LoginRequest request)
@@ -32,7 +25,7 @@ namespace ecommerce.service
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, request.Email),
+                    new Claim(ClaimTypes.Email, request.Email),
                 }),
                 Expires = DateTime.UtcNow.Add(settings.GetTokenExperation()),
                 //Issuer = "MyWebsite.com",

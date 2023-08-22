@@ -4,11 +4,11 @@ namespace ecommerce.service
 {
     public interface IOrderService
     {
-        Task<IEnumerable<OrderEntity>> GetAllOrdersAsync();
-         Task<IEnumerable<OrderEntity>> GetCustomerOrdersAsync(int customerId);
-        Task<OrderEntity> GetOrderByIdAsync(int id);
-        Task PlaceOrderAsync(OrderEntity order);
-        Task UpdateOrderAsync(OrderEntity order);
+        Task<IEnumerable<OrderModel>> GetAllOrdersAsync();
+         Task<IEnumerable<OrderModel>> GetCustomerOrdersAsync(int customerId);
+        Task<OrderModel> GetOrderByIdAsync(int id);
+        Task<OrderModel> PlaceOrderAsync(PlaceOrderModel order);
+        Task UpdateOrderAsync(OrderModel order);
         Task DeleteOrderAsync(int orderId);
         Task<IEnumerable<MonthlyStats>> GetMonthlyStatisticsAsync(int customerId);
     }

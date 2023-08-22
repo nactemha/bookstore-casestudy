@@ -1,4 +1,4 @@
-﻿using ecommerce.extention;
+﻿using ecommerce.extension;
 using ecommerce.models;
 using ecommerce.service;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,6 @@ namespace ecommerce.Controllers
             _customerService = customerService;
             _logger = logger;
         }
-
         /// <summary>
         /// Get all customers
         /// </summary>
@@ -28,9 +27,38 @@ namespace ecommerce.Controllers
         /// <returns></returns>
         /// <response code="200">Get all customers success</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPut("{id:int}")]
+        [HttpGet]
         [FrontAuth]
-        public async Task<IActionResult> UpdateCustomer(CustomerEntity customerRequest)
+        public async Task<IActionResult> GetCurrent()
+        {
+            try
+            {
+                var claim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
+                if (claim == null)
+                {
+                    return Unauthorized();
+                }
+                var customerEmail = claim.Value;
+
+                var customer = await _customerService.GetCustomerByEmailAsync(customerEmail);
+                return Ok(customer);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "Error while getting current customer");
+                return StatusCode((int)System.Net.HttpStatusCode.InternalServerError);
+            }
+        }
+        /// <summary>
+        /// Get all customers
+        /// </summary>
+        /// <param name="customerRequest"></param>
+        /// <returns></returns>
+        /// <response code="200">Get all customers success</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpPut()]
+        [FrontAuth]
+        public async Task<IActionResult> UpdateCustomer(CustomerModel customerRequest)
         {
             try
             {
@@ -54,13 +82,16 @@ namespace ecommerce.Controllers
         /// <returns></returns>
         /// <response code="200">Get all customers success</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpDelete("{id:int}")]
+        [HttpDelete()]
         [FrontAuth]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer()
         {
             try
             {
-                await _customerService.DeleteCustomerAsync(id);
+                var customerEmail = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+                var customer = await _customerService.GetCustomerByEmailAsync(customerEmail);
+
+                await _customerService.DeleteCustomerAsync(customer.Id);
                 return NoContent();
             }
             catch (Exception ex)

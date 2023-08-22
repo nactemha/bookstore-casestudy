@@ -1,0 +1,1354 @@
+{
+	"info": {
+		"_postman_id": "7600a061-a3ce-45b6-8803-1961bf77f811",
+		"name": "BookingStoreAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "102938",
+		"_collection_link": "https://www.postman.com/martian-shuttle-796970/workspace/studycase/collection/102938-7600a061-a3ce-45b6-8803-1961bf77f811?action=share&source=collection_link&creator=102938"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "/Auth/login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var res = JSON.parse(responseBody);",
+											"pm.environment.set(\"token\",res.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Auth",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Auth",
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 22:48:52 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7235#section-3.1\",\n    \"title\": \"Unauthorized\",\n    \"status\": 401,\n    \"traceId\": \"00-836dcd0c44fe3771f0d650010e83c70b-b98e35e0a6b0d00a-00\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 23:14:20 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errorCode\": 0,\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3QxQG5vbWFpbC5jb20iLCJuYmYiOjE2OTI2NTk2NjAsImV4cCI6MTY5MjY2MzI2MCwiaWF0IjoxNjkyNjU5NjYwfQ.hYmRqTsyhNsYUo_00Qqv16CSeDKrlIMZOUoplWi_P3w\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "/Auth/register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{email}}\",\n  \"name\": \"ahmet can\",\n  \"password\": \"{{password}}\",\n  \"address\": \"kadıköy/İstanbul\",\n  \"phoneNumber\": \"+905550001122\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Auth",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "validation error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}>\",\n  \"name\": \"ahmet can\",\n  \"password\": \"{{password}}\",\n  \"address\": \"kadıköy/İstanbul\",\n  \"phoneNumber\": \"+905550001122\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Auth",
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 22:34:40 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-190ff7ce832820eff05a7ca74e0737d8-3a319849042ce956-00\",\n    \"errors\": {\n        \"Password\": [\n            \"The field Password must be a string or array type with a minimum length of '8'.\"\n        ]\n    }\n}"
+								},
+								{
+									"name": "email already exist",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}>\",\n  \"name\": \"ahmet can\",\n  \"password\": \"{{password}}\",\n  \"address\": \"kadıköy/İstanbul\",\n  \"phoneNumber\": \"+905550001122\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Auth",
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 22:47:37 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "Email is already exist"
+								},
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}>\",\n  \"name\": \"ahmet can\",\n  \"password\": \"{{password}}\",\n  \"address\": \"kadıköy/İstanbul\",\n  \"phoneNumber\": \"+905550001122\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Auth",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 22:48:29 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "/Books/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "/Books/:id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Books/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Books",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 21 Aug 2023 23:54:01 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"title\": \"test title\",\n    \"author\": \"test author\",\n    \"price\": 10\n}"
+								}
+							]
+						},
+						{
+							"name": "/Books/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"author\": \"<string>\",\n  \"price\": \"<double>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"author\": \"<string>\",\n  \"price\": \"<double>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/Books/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "/Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Aug 2023 23:53:20 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"test title\",\n        \"author\": \"test author\",\n        \"price\": 10\n    },\n    {\n        \"id\": 2,\n        \"title\": \"test title 2\",\n        \"author\": \"test author 2\",\n        \"price\": 20\n    },\n    {\n        \"id\": 3,\n        \"title\": \"test title 3\",\n        \"author\": \"test author 3\",\n        \"price\": 30\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "/Books",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"author\": \"<string>\",\n  \"price\": \"<double>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Books",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"author\": \"<string>\",\n  \"price\": \"<double>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Aug 2023 23:52:06 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"00-f53ce9fb95dbc1c3566cd25c1ef92850-85b5e47a2bf63143-00\",\n    \"errors\": {\n        \"book\": [\n            \"The book field is required.\"\n        ],\n        \"$.id\": [\n            \"The JSON value could not be converted to System.Int32. Path: $.id | LineNumber: 1 | BytePositionInLine: 19.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "/Books",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"test title\",\n  \"author\": \"test author\",\n  \"price\": \"10\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Books"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Aug 2023 23:52:48 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Location",
+									"value": "https://localhost:7068/Books/0"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 0,\n    \"title\": \"test title\",\n    \"author\": \"test author\",\n    \"price\": 10\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "monthly",
+					"item": [
+						{
+							"name": "/Statistics/monthly",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Statistics/monthly",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Statistics",
+										"monthly"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Statistics/monthly",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Statistics",
+												"monthly"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "/Statistics/monthly",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Statistics/monthly",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Statistics",
+												"monthly"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 22 Aug 2023 00:42:57 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"year\": 2023,\n        \"month\": 8,\n        \"totalOrderCount\": 2,\n        \"totalAmount\": 0,\n        \"totalBooksPurchased\": 2\n    }\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "/Customers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/Customers",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 00:10:02 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 6,\n    \"name\": null,\n    \"password\": null,\n    \"email\": \"test1@nomail.com\",\n    \"address\": \"kadıköy/İstanbul\",\n    \"phoneNumber\": \"+905550001122\",\n    \"orders\": null,\n    \"createdAt\": \"0001-01-01T00:00:00\",\n    \"updatedAt\": \"0001-01-01T00:00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/Customers",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"orders\": [\n    {\n      \"id\": \"<integer>\",\n      \"orderDate\": \"<dateTime>\",\n      \"status\": 3,\n      \"totalAmount\": \"<double>\",\n      \"customerId\": \"<integer>\",\n      \"customer\": {\n        \"value\": \"<Circular reference to #/components/schemas/CustomerModel detected>\"\n      },\n      \"orderItems\": [\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        },\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"orderDate\": \"<dateTime>\",\n      \"status\": 0,\n      \"totalAmount\": \"<double>\",\n      \"customerId\": \"<integer>\",\n      \"customer\": {\n        \"value\": \"<Circular reference to #/components/schemas/CustomerModel detected>\"\n      },\n      \"orderItems\": [\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        },\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email\": \"<string>\",\n  \"address\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"orders\": [\n    {\n      \"id\": \"<integer>\",\n      \"orderDate\": \"<dateTime>\",\n      \"status\": 3,\n      \"totalAmount\": \"<double>\",\n      \"customerId\": \"<integer>\",\n      \"customer\": {\n        \"value\": \"<Circular reference to #/components/schemas/CustomerModel detected>\"\n      },\n      \"orderItems\": [\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        },\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"orderDate\": \"<dateTime>\",\n      \"status\": 0,\n      \"totalAmount\": \"<double>\",\n      \"customerId\": \"<integer>\",\n      \"customer\": {\n        \"value\": \"<Circular reference to #/components/schemas/CustomerModel detected>\"\n      },\n      \"orderItems\": [\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        },\n        {\n          \"id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"subTotal\": \"<double>\",\n          \"bookId\": \"<integer>\",\n          \"book\": {\n            \"id\": \"<integer>\",\n            \"title\": \"<string>\",\n            \"author\": \"<string>\",\n            \"price\": \"<double>\"\n          },\n          \"orderId\": \"<integer>\",\n          \"order\": {\n            \"value\": \"<Circular reference to #/components/schemas/OrderModel detected>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "/Customers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Customers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "/Orders/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Orders/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Orders",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Orders/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Orders",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/Orders/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Orders/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Orders",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/Orders/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Orders",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "/Orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "/Orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"1\",\n  \"quantity\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<integer>\",\n  \"customerId\": \"<integer>\",\n  \"bookId\": \"<integer>\",\n  \"quantity\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}

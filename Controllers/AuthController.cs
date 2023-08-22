@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ecommerce.extention;
+using ecommerce.extension;
 using ecommerce.models;
 using ecommerce.service;
 using Microsoft.AspNetCore.Mvc;
@@ -49,12 +49,8 @@ namespace ecommerce.Controllers
         {
             try
             {
-                var customer = await this.customerService.GetCustomerByEmailAsync(request.Email);
-                if (customer == null)
-                {
-                    return Unauthorized();
-                }
-                if (customer.HashedPassword != request.Password.CalcMD5())
+                var isValid = await this.customerService.ValidateCustomerAsync(request.Email.Trim().ToLower(), request.Password.CalcMD5());
+                if (!isValid)
                 {
                     return Unauthorized();
                 }
@@ -91,13 +87,14 @@ namespace ecommerce.Controllers
                 var customer = await this.customerService.GetCustomerByEmailAsync(request.Email);
                 if (customer != null)
                 {
-                    return BadRequest();
+                    return BadRequest("Email is already exist");
+
                 }
-                var newCustomer = new CustomerEntity
+                var newCustomer = new CustomerModel
                 {
                     Name = request.Name,
-                    Email = request.Email,
-                    HashedPassword = request.Password.CalcMD5(),
+                    Email = request.Email.Trim().ToLower(),
+                    Password = request.Password,
                     Address = request.Address,
                     PhoneNumber = request.PhoneNumber,
                     CreatedAt = DateTime.UtcNow,

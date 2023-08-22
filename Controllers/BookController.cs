@@ -1,18 +1,14 @@
 using ecommerce.service;
+using ecommerce.extension;
+using ecommerce.models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ecommerce.Controllers
 {
-    using ecommerce.extention;
-    using ecommerce.models;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Threading.Tasks;
 
     [ApiController]
-    [Route("api/[controller]")]
-    [FrontAuth]
+    [Route("[controller]")]
     public class BooksController : ControllerBase
     {
         private readonly ILogger<BooksController> _logger;
@@ -83,7 +79,7 @@ namespace ecommerce.Controllers
         /// <response code="201">Add book success</response>
         /// <response code="500">Internal Server Error</response>
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookEntity book)
+        public async Task<IActionResult> AddBook(BookModel book)
         {
             try
             {
@@ -106,7 +102,7 @@ namespace ecommerce.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateBook(int id, BookEntity book)
+        public async Task<IActionResult> UpdateBook(int id, BookModel book)
         {
             try
             {

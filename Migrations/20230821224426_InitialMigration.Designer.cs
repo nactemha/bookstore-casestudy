@@ -12,7 +12,7 @@ using ecommerce.data.postgre;
 namespace ecommerce_casestudy.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230821212714_InitialMigration")]
+    [Migration("20230821224426_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -88,10 +88,6 @@ namespace ecommerce_casestudy.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

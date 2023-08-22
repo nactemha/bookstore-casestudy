@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ecommerce.extention
+namespace ecommerce.extension
 {
     public class FrontRequirement : IAuthorizationRequirement
     {
@@ -35,7 +35,7 @@ namespace ecommerce.extention
                 context.Fail();
                 return Task.CompletedTask;
             }
-            if(!context.User.HasClaim(it=>it.Type==System.Security.Claims.ClaimTypes.Name&&!String.IsNullOrEmpty(it.Value)))
+            if(!context.User.HasClaim(it=>it.Type==System.Security.Claims.ClaimTypes.Email&&!String.IsNullOrEmpty(it.Value)))
             {
                 context.Fail();
                 return Task.CompletedTask;

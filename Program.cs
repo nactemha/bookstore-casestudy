@@ -4,6 +4,7 @@ using ecommerce.service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using ecommerce.extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,10 +29,16 @@ var dbContextPostgre=new ecommerce.data.postgre.AppDbContext( settings);
 builder.Services.AddSingleton<ecommerce.data.postgre.AppDbContext>(services=>dbContextPostgre);
 builder.Services.AddSingleton<ICustomerRepository, ecommerce.data.postgre.CustomerRepository>();
 
-builder.Services.AddSingleton<TokenService, TokenService>();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 
-
+builder.Services.AddSingleton<ITokenService,TokenService>();
+builder.Services.AddSingleton<IBookService, BookService>();
+builder.Services.AddSingleton<IOrderService, OrderService>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
+
+builder.AddAutherization(settings);
 
 var app = builder.Build();
 

@@ -14,27 +14,54 @@ namespace ecommerce.service
             _bookRepository = bookRepository;
         }
         
-        public async Task<IEnumerable<BookEntity>> GetAllBooksAsync()
+        public async Task<IEnumerable<BookModel>> GetAllBooksAsync()
         {
 
-            return await _bookRepository.GetAllAsync();
+            var result= await _bookRepository.GetAllAsync();
+            return result.Select(b => new BookModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                Price = b.Price,
+            });
 
         }
 
-        public async Task<BookEntity> GetBookByIdAsync(int id)
+        public async Task<BookModel> GetBookByIdAsync(int id)
         {
-            return await _bookRepository.GetByIdAsync(id);
+            var result= await _bookRepository.GetByIdAsync(id);
+            return new BookModel
+            {
+                Id = result.Id,
+                Title = result.Title,
+                Author = result.Author,
+                Price = result.Price,
+            };
         }
 
-        public async Task AddBookAsync(BookEntity book)
+        public async Task AddBookAsync(BookModel book)
         {
-            await _bookRepository.AddAsync(book);
+            var requestedBook =new BookEntity{
+                Title = book.Title,
+                Author = book.Author,
+                Price = book.Price,
+            };
+            await _bookRepository.AddAsync(requestedBook);
             await _bookRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateBookAsync(BookEntity book)
+        public async Task UpdateBookAsync(BookModel book)
         {
-            _bookRepository.Update(book);
+            var requestedBook = await _bookRepository.GetByIdAsync(book.Id);
+            if (requestedBook == null)
+            {
+                throw new InvalidOperationException("Book not found.");
+            }
+            requestedBook.Title = book.Title;
+            requestedBook.Author = book.Author;
+            requestedBook.Price = book.Price;
+            _bookRepository.Update(requestedBook);
             await _bookRepository.SaveChangesAsync();
         }
 

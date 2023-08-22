@@ -4,10 +4,10 @@ namespace ecommerce.service
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookEntity>> GetAllBooksAsync();
-        Task<BookEntity> GetBookByIdAsync(int id);
-        Task AddBookAsync(BookEntity book);
-        Task UpdateBookAsync(BookEntity book);
+        Task<IEnumerable<BookModel>> GetAllBooksAsync();
+        Task<BookModel> GetBookByIdAsync(int id);
+        Task AddBookAsync(BookModel book);
+        Task UpdateBookAsync(BookModel book);
         Task DeleteBookAsync(int bookId);
     }
 }

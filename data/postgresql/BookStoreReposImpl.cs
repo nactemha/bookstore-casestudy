@@ -15,6 +15,11 @@ namespace ecommerce.data.postgre
         {
             return await _dbSet.FirstOrDefaultAsync(c => c.Email == email);
         }
+
+        public async Task<bool> ValidateCustomerAsync(string email, string passwordHash)
+        {
+            return await _dbSet.AnyAsync(c => c.Email == email && c.HashedPassword == passwordHash);
+        }
     }
 
     public class BookRepository : Repository<BookEntity>, IBookRepository
