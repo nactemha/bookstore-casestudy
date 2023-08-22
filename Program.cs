@@ -53,6 +53,19 @@ if (app.Environment.IsDevelopment())
 
     });
 }
+else
+{
+    //auto migrate db
+    using (var scope = app.Services.CreateScope()) // Change this line
+    {
+        using (var context = scope.ServiceProvider.GetService<AppDbContext>())
+        {
+            context.Database.Migrate();
+        }
+    }
+
+}
+
 
 app.UseHttpsRedirection();
 

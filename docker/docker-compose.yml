@@ -12,6 +12,7 @@ services:
       - 'postgresql_data:/bitnami/postgresql'
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'POSTGRESQL_DATABASE=bookstore'
   
   webapp:
     build:
